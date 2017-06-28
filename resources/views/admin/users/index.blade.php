@@ -26,8 +26,8 @@
                     
                 </td>
                 <td>
-                    <a href="" class="btn btn-danger"></a>
-                    <a href="" class="btn btn-warning"></a>
+                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning glyphicon glyphicon-wrench"></a>
+                    <a href="{{ route('users.destroy', $user->id) }}" onclick=" return confirm('¿Seguro que quiere eliminidar este usuario?')"  class="btn btn-danger glyphicon glyphicon-trash"></a>
                 </td>
             </tr>
         @endforeach

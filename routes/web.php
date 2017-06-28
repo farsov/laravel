@@ -17,8 +17,12 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function () {
     Route::resource('users','UsersController');
+    Route::get('users/{id}/destroy',[
+        'uses' => 'UsersController@destroy',
+        'as'   => 'users.destroy'
+    ]);
 });
 
-Auth::routes();
+//Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');

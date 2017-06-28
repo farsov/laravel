@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Laracasts\Flash\Flash;
+use App\Http\Requests\UserRequest;
 
 class UsersController extends Controller
 {
@@ -37,7 +38,7 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         //
         //dd($request->all());
@@ -68,6 +69,8 @@ class UsersController extends Controller
     public function edit($id)
     {
         //
+        $users = User::find($id);
+         return view('admin.users.edit')->with('users', $users);
     }
 
     /**
@@ -80,6 +83,14 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $users = User::find($id);
+        $users->name = $request->name;
+        $users->email = $request->email;
+        $users->type = $request->type;
+        $users->save();
+        Flash::success("Se ha editado el usuario:  ".$users->name." de forma exiota!");
+        return redirect()->route('users.index');
+
     }
 
     /**
@@ -91,5 +102,9 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+        $user = User::find($id);
+        $user->delete();
+        Flash::error("Se ha eliminado ".$user->name." de forma exiota!");
+        return redirect()->route('users.index');
     }
 }
