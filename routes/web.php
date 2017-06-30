@@ -12,10 +12,10 @@
  */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('users','UsersController');
     Route::get('users/{id}/destroy',[
         'uses' => 'UsersController@destroy',
@@ -29,6 +29,6 @@ Route::group(['prefix' => 'admin'], function () {
     ]);
 });
 
-//Auth::routes();
+Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');

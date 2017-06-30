@@ -35,7 +35,8 @@ class AddTagsTable extends Migration
      * @return void
      */
     public function down()
-    {
+    {   
+        Schema::dropIfExists('article_tag');
         Schema::dropIfExists('tags');
     }
 }
